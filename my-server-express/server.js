@@ -22,10 +22,20 @@ app.post('/upload', (req, res, next) => {
              console.log(err);
          }
          else{
-var wb = xlsx.readFile(__dirname+"/upload/"+file.name)
-   var ws = wb.Sheets["Data"];
-   var data = xlsx.utils.sheet_to_json(ws);
-     console.log(data);
+var wb = xlsx.readFile(__dirname+"/upload/"+file.name);
+
+let sheet_name_list = wb.SheetNames;
+var ws;
+var data =[] ;
+for(let i=0;i<sheet_name_list.length;i++)
+{
+   ws = wb.Sheets[sheet_name_list[i]];
+   data.push(xlsx.utils.sheet_to_json(ws));
+}
+   
+   
+  // console.log(sheet_name_list);
+    // console.log(data);
 
             res.send({
                 success: true,
