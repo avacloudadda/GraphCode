@@ -2,8 +2,11 @@ import React, { useState,PureComponent } from 'react';
 //import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+// import {
+//   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,  PieChart, Pie, Sector, Cell,
+// } from 'recharts';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,  PieChart, Pie, Sector, Cell,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,  PieChart, Pie
 } from 'recharts';
 /*jshint -W030 */
 function App() {
@@ -21,22 +24,22 @@ function App() {
   //   },
 
   // ];
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042','#e74c3c'];
+  // const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042','#e74c3c'];
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({
-  cx, cy, midAngle, innerRadius, outerRadius, percent, index,
-}) => {
-   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+// const RADIAN = Math.PI / 180;
+// const renderCustomizedLabel = ({
+//   cx, cy, midAngle, innerRadius, outerRadius, percent, index,
+// }) => {
+//    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+//   const x = cx + radius * Math.cos(-midAngle * RADIAN);
+//   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-  return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-      {`${(percent * 100).toFixed(0)}%`}
-    </text>
-  );
-};
+//   return (
+//     <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+//       {`${(percent * 100).toFixed(0)}%`}
+//     </text>
+//   );
+// };
   function onClickHandler() {
     // console.log(setFileData);
 
@@ -158,7 +161,36 @@ const renderCustomizedLabel = ({
       </div>
     );
   }
-  function DrawPieChart(props)
+  // function DrawPieChart(props)
+  // {
+  //   let graphData = [...props.chartData[0]];
+  //   console.log(graphData);
+  //   let keyNameArr = [];
+  //   let count = 0;
+  //   for (var name in graphData[count]) {
+  //     keyNameArr[count] = name;
+  //     ++count;
+  //   }
+  //   return (
+  //     <PieChart width={400} height={400}>
+  //       <Pie
+  //         data={graphData}
+  //         cx={200}
+  //         cy={200}
+  //         labelLine={false}
+  //         label={renderCustomizedLabel}
+  //         outerRadius={80}
+  //         fill="#8884d8"
+  //         dataKey={keyNameArr[1]}
+  //       >
+  //         {
+  //           graphData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+  //         }
+  //       </Pie>
+  //     </PieChart>
+  //   );
+  // }
+   function DrawPieChart(props)
   {
     let graphData = [...props.chartData[0]];
     console.log(graphData);
@@ -168,25 +200,16 @@ const renderCustomizedLabel = ({
       keyNameArr[count] = name;
       ++count;
     }
+    console.log(keyNameArr[1]);
     return (
       <PieChart width={400} height={400}>
-        <Pie
-          data={graphData}
-          cx={200}
-          cy={200}
-          labelLine={false}
-          label={renderCustomizedLabel}
-          outerRadius={80}
-          fill="#8884d8"
-          dataKey={keyNameArr[1]}
-        >
-          {
-            graphData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-          }
-        </Pie>
+        <Pie dataKey={keyNameArr[1]} isAnimationActive={false} data={graphData} cx={200} cy={200} outerRadius={80} fill="#8884d8" label />
+      
+        <Tooltip />
       </PieChart>
     );
   }
+
   function onchangeHandler(e) {
     
     let files = e.target.files;
